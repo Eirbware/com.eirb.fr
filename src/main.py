@@ -1,6 +1,4 @@
 from os import getenv
-from dotenv_vault import load_dotenv
-load_dotenv()
 
 from eirb_com_helper.server import app 
 
