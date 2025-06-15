@@ -7,54 +7,52 @@
 </script>
 
 <!-- Help Modal -->
-{#if displayHelpModal.state}
-  <dialog open={displayHelpModal.state} class="help-modal" id="help-modal">
-    <div class="help-modal--back" id="help-modal--back"></div>
+<dialog open={displayHelpModal.state} class="help-modal" id="help-modal">
+  <div class="help-modal--back" id="help-modal--back"></div>
 
-    <div class="help-modal--container">
-      <div class="help-modal--header">
-        <h3>Comment trouver mon chat id ?</h3>
+  <div class="help-modal--container">
+    <div class="help-modal--header">
+      <h3>Comment trouver mon chat id ?</h3>
 
-        <button on:click={closeHelp} class="help-modal--close" id="help-modal--close">
-          <img
-            alt="close"
-            class="help-modal--close-img"
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDYuNDFMMTcuNTksNUwxMiwxMC41OUw2LjQxLDVMNSw2LjQxTDEwLjU5LDEyTDUsMTcuNTlMNi40MSwxOUwxMiwxMy40MUwxNy41OSwxOUwxOSwxNy41OUwxMy40MSwxMkwxOSw2LjQxWiIgLz48L3N2Zz4="
-          />
-        </button>
-      </div>
-
-      <hr class="help-modal--separator" />
-
-      <div class="help-modal--body">
-        <ol>
-          <!-- TODO: complete with the credentials of the Bot -->
-          <li>
-            Contactez
-            <a target="_blank" href="t.me/Occulteirbot">Occulteirbot</a>
-          </li>
-          <li>Envoyez-lui la commande <code>/start</code></li>
-          <li>Vous recevrez votre chat id en réponse en ce sera bon !</li>
-        </ol>
-      </div>
+      <button
+        on:click={closeHelp}
+        class="help-modal--close"
+        id="help-modal--close"
+      >
+        <img
+          alt="close"
+          class="help-modal--close-img"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDYuNDFMMTcuNTksNUwxMiwxMC41OUw2LjQxLDVMNSw2LjQxTDEwLjU5LDEyTDUsMTcuNTlMNi40MSwxOUwxMiwxMy40MUwxNy41OSwxOUwxOSwxNy41OUwxMy40MSwxMkwxOSw2LjQxWiIgLz48L3N2Zz4="
+        />
+      </button>
     </div>
-  </dialog>
-{/if}
+
+    <hr class="help-modal--separator" />
+
+    <div class="help-modal--body">
+      <ol>
+        <!-- TODO: complete with the credentials of the Bot -->
+        <li>
+          Contactez
+          <a target="_blank" href="t.me/Occulteirbot">Occulteirbot</a>
+        </li>
+        <li>Envoyez-lui la commande <code>/start</code></li>
+        <li>Vous recevrez votre chat id en réponse en ce sera bon !</li>
+      </ol>
+    </div>
+  </div>
+</dialog>
 
 <!-- End Help Modal -->
 
 <style>
-  dialog {
+  .help-modal--back {
     position: fixed;
     left: 0;
     top: 0;
 
     width: 100vw;
     height: 100vh;
-  }
-
-  .help-modal--back {
-
     background-color: #2d2d2d40;
   }
 
