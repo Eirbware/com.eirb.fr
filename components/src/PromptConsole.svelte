@@ -1,8 +1,8 @@
 <script>
   import { displayHelpModal } from "./runes/display-help-modal.svelte";
 
-  function toggleHelp() {
-    displayHelpModal.state = !displayHelpModal.state;
+  function openHelp() {
+    displayHelpModal.state = true;
   }
 </script>
 
@@ -28,7 +28,7 @@
     <!-- noform to prevent the button from triggering the form submit event -->
     <button
       form="noform"
-      on:click={toggleHelp}
+      on:click={openHelp}
       id="help-button"
       title="Où trouver le chat-id ?"
     >

@@ -1,17 +1,21 @@
 <script lang="ts">
   import { displayHelpModal } from "./runes/display-help-modal.svelte";
+
+  function closeHelp() {
+    displayHelpModal.state = false;
+  }
 </script>
 
 <!-- Help Modal -->
 {#if displayHelpModal.state}
-  <dialog class="help-modal" id="help-modal">
+  <dialog open={displayHelpModal.state} class="help-modal" id="help-modal">
     <div class="help-modal--back" id="help-modal--back"></div>
 
     <div class="help-modal--container">
       <div class="help-modal--header">
         <h3>Comment trouver mon chat id ?</h3>
 
-        <button class="help-modal--close" id="help-modal--close">
+        <button on:click={closeHelp} class="help-modal--close" id="help-modal--close">
           <img
             alt="close"
             class="help-modal--close-img"
