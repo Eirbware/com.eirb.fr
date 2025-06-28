@@ -13,12 +13,16 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
     "@types/markdown-it": "^14.1.2",
+    "@types/markdown-it-highlightjs": "^4.0.1",
     "svelte": "^5.28.1",
     "svelte-check": "^4.1.6",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "markdown-it": "^14.1.0"
+    "@mdit/plugin-spoiler": "^0.22.1",
+    "markdown-it": "^14.1.0",
+    "markdown-it-highlightjs": "^4.2.0",
+    "markdown-it-task-lists": "^2.1.1"
   }
 }
