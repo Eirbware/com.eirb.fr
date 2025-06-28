@@ -3,8 +3,8 @@
   import PromptConsole from "./PromptConsole.svelte";
   import Renderer from "./renderer";
   import HelpModal from "./HelpModal.svelte";
-    import PreviewButton from "./PreviewButton.svelte";
-    import { preview } from "./runes/preview.svelte";
+  import PreviewButton from "./PreviewButton.svelte";
+  import { preview } from "./runes/preview.svelte";
 </script>
 
 <!-- Left half of the screen with a form -->
@@ -13,7 +13,7 @@
 
 <!-- Right half of the screen -->
 {#if preview.state}
-<aside><Renderer></Renderer></aside>
+  <aside><Renderer></Renderer></aside>
 {/if}
 <!-- Button and modal -->
 <PreviewButton></PreviewButton>
@@ -74,5 +74,4 @@
       height: 100dvh;
     }
   }
-
 </style>
