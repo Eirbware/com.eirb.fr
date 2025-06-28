@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   import { displayHelpModal } from "./runes/display-help-modal.svelte";
+  import { markdownContent } from "./runes/markdown-content.svelte";
 
   function openHelp() {
     displayHelpModal.state = true;
@@ -10,7 +11,7 @@
   <!-- Main markdown input div taking 90% of the height -->
   <div class="input-container">
     <!-- TODO: add the placeholders as slugs -->
-    <textarea id="message" name="message" placeholder="Enter your message here"
+    <textarea id="message" bind:value={markdownContent.content} name="message" placeholder="Enter your message here"
       >Enter your message here</textarea
     >
   </div>
