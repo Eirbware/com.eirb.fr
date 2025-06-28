@@ -5,145 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Telegram message writer</title>
     <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='/img/favicon.png') }}"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='layout.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='output.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='telegram.css') }}"
-    />
-
+-      rel="shortcut icon"
+-      href="{{ url_for('static', filename='/img/favicon.png') }}"
+-      type="image/x-icon"
+-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    {{ vite_tags() }}
+    <script type="module" src="http://localhost:3000/@vite/client"></script>
+    <script type="module" src="http://localhost:3000/main.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-
-
-    <!-- Right half of the screen -->
-    <div class="rendered-content-container telegram">
-      <!-- Content for the second half -->
-      <div class="page_body chat_page">
-        <div class="history">
-          <div class="message default clearfix">
-            <div class="pull_left userpic_wrap">
-              <div class="userpic userpic6" style="width: 42px; height: 42px">
-                <div class="initials" style="line-height: 42px"></div>
-              </div>
-            </div>
-
-            <div class="body">
-              <!-- TODO: add the automatic date -->
-              <div
-                class="pull_right date details"
-                title="14.04.2025 00:01:51 UTC+01:00"
-              >
-                00:01
-              </div>
-
-              <!-- TODO: add an default User -->
-              <div class="from_name">💚🩵Feufoll'eirb🩵💚</div>
-
-              <div class="text" id="rendered-content"></div>
-
-              <span class="reactions">
-                <span class="reaction">
-                  <span class="emoji"> ❤ </span>
-
-                  <span class="count"> 17 </span>
-                </span>
-
-                <span class="reaction">
-                  <span class="emoji"> 🔥 </span>
-
-                  <span class="count"> 4 </span>
-                </span>
-
-                <span class="reaction">
-                  <span class="emoji"> 🎉 </span>
-
-                  <span class="count"> 1 </span>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="preview-button" id="preview-button">
-      <img
-        alt="preview"
-        class="preview-button--preview"
-        id="preview-button--preview"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjNWY2MzY4Ij48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0wLTgwaDU2MHYtNDgwSDIwMHY0ODBabTI4MC04MHEtODIgMC0xNDYuNS00NC41VDI0MC00NDBxMjktNzEgOTMuNS0xMTUuNVQ0ODAtNjAwcTgyIDAgMTQ2LjUgNDQuNVQ3MjAtNDQwcS0yOSA3MS05My41IDExNS41VDQ4MC0yODBabTAtNjBxNTYgMCAxMDItMjYuNXQ3Mi03My41cS0yNi00Ny03Mi03My41VDQ4MC01NDBxLTU2IDAtMTAyIDI2LjVUMzA2LTQ0MHEyNiA0NyA3MiA3My41VDQ4MC0zNDBabTAtMTAwWm0wIDYwcTI1IDAgNDIuNS0xNy41VDU0MC00NDBxMC0yNS0xNy41LTQyLjVUNDgwLTUwMHEtMjUgMC00Mi41IDE3LjVUNDIwLTQ0MHEwIDI1IDE3LjUgNDIuNVQ0ODAtMzgwWiIvPjwvc3ZnPg=="
-      />
-      <img
-        alt="nopreview"
-        class="preview-button--nopreview hidden"
-        id="preview-button--nopreview"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjNWY2MzY4Ij48cGF0aCBkPSJNNDgwLTI4MHEtODIgMC0xNDYuNS00NC41VDI0MC00NDBxMjAtNDggNTYtODR0ODQtNTZsNDcgNDdxLTM5IDExLTcwIDM0LjVUMzA2LTQ0MHEyNiA0NyA3MiA3My41VDQ4MC0zNDBxMzAgMCA1OC04dDUxLTIzbDQzIDQzcS0zMiAyMy03MC41IDM1LjVUNDgwLTI4MFptMjA5LTEwNC00My00M3EyLTMgNC02LjV0NC02LjVxLTE4LTMzLTQ3LTU2LjVUNTQyLTUzMWwtNjktNjlxODIgMCAxNTAgNDQuNVQ3MjAtNDQwcS02IDE1LTEzLjUgMjlUNjg5LTM4NFpNNzkxLTU2bC02NC02NEgyMDBxLTMzIDAtNTYuNS0yMy41VDEyMC0yMDB2LTUyN2wtNjQtNjUgNTYtNTYgNzM2IDczNi01NyA1NlpNMjAwLTIwMGg0NDdMMjAwLTY0N3Y0NDdabTY0MC0zMy04MC04MHYtMzI3SDQzM0wyMzMtODQwaDUyN3EzMyAwIDU2LjUgMjMuNVQ4NDAtNzYwdjUyN1oiLz48L3N2Zz4="
-      />
-    </div>
-
-    <!-- Help Modal -->
-    <div class="help-modal hidden" id="help-modal">
-      <div class="help-modal--back" id="help-modal--back"></div>
-
-      <div class="help-modal--container">
-        <div class="help-modal--header">
-          <h3>Comment trouver mon chat id ?</h3>
-
-          <button class="help-modal--close" id="help-modal--close">
-            <img
-              alt="close"
-              class="help-modal--close-img"
-              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDYuNDFMMTcuNTksNUwxMiwxMC41OUw2LjQxLDVMNSw2LjQxTDEwLjU5LDEyTDUsMTcuNTlMNi40MSwxOUwxMiwxMy40MUwxNy41OSwxOUwxOSwxNy41OUwxMy40MSwxMkwxOSw2LjQxWiIgLz48L3N2Zz4="
-            />
-          </button>
-        </div>
-
-        <hr class="help-modal--separator" />
-
-        <div class="help-modal--body">
-          <ol>
-            <li>
-              Contactez
-              <a target="_blank" href="{{ bot_link }}">{{ bot_username }}</a>
-            </li>
-            <li>Envoyez-lui la commande <code>/start</code></li>
-            <li>Vous recevrez votre chat id en réponse en ce sera bon !</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <!-- End Help Modal -->
-
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-    ></script>
-    <script src="{{ url_for('static', filename='render_content.js') }}"></script>
-    <script src="{{ url_for('static', filename='send_content.js') }}"></script>
-    <script src="{{ url_for('static', filename='store.js') }}"></script>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <div id="com-app"></div>
   </body>
 </html>
