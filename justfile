@@ -22,6 +22,10 @@ vite-dev:
 flask-dev:
   poetry run flask {{FLASK_APP_FLAG}} --debug run
 
+[group("dev")]
+vite-check:
+  cd components && bun run check
+
 [group("prod")]
 build:
   poetry run flask {{FLASK_APP_FLAG}} vite build
