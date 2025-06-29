@@ -42,7 +42,7 @@ const allowAdditionalLinebreaks: MarkdownRenderingCustomProcess = {
   pre: (mdContent: string) =>
     mdContent.replace(/\n{3,}/g, (match) => {
       const extraBreaks = match.length - 2;
-      return "\n\n" + "<br/>\n".repeat(extraBreaks).trim();
+      return "\n\n" + "<br/>".repeat(extraBreaks) + "\n\n";
     }),
   post: (htmlContent: string) => htmlContent,
 };
