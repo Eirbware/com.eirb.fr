@@ -1,11 +1,9 @@
 <script lang="ts">
   import "./css/classic-renderer.css";
 
-  import { renderMarkdown } from "./markdown-to-message-html";
-
-  export let markdownContent: string = "";
+  let { htmlContent }: { htmlContent: string } = $props();
 </script>
 
 <div class="rendered-html">
-  {@html renderMarkdown(markdownContent)}
+  {@html htmlContent}
 </div>

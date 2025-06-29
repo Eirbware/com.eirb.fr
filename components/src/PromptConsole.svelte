@@ -1,18 +1,34 @@
 <script lang="ts">
   import { displayHelpModal } from "./runes/display-help-modal.svelte";
   import { markdownContent } from "./runes/markdown-content.svelte";
+  import { htmlRenderedContent } from "./runes/html-rendered-content.svelte";
+
+  import { postMessage } from "./lib/send-message";
+
+  let chatId: string = $state("");
+
+  function messageSubmit(event: SubmitEvent) {
+    event.preventDefault();
+    postMessage(
+      $state.snapshot(htmlRenderedContent()),
+      $state.snapshot(chatId),
+    );
+  }
 
   function openHelp() {
     displayHelpModal.state = true;
   }
 </script>
 
-<form id="dataForm" action="#" method="POST" class="editor">
+<form id="dataForm" onsubmit={messageSubmit} class="editor">
   <!-- Main markdown input div taking 90% of the height -->
   <div class="input-container">
     <!-- TODO: add the placeholders as slugs -->
-    <textarea id="message" bind:value={markdownContent.content} name="message" placeholder="Enter your message here"
-      >Enter your message here</textarea
+    <textarea
+      id="message"
+      bind:value={markdownContent.content}
+      name="message"
+      placeholder="Enter your message here">Enter your message here</textarea
     >
   </div>
 
@@ -21,6 +37,7 @@
   <div class="input-row">
     <input
       id="chat-id"
+      bind:value={chatId}
       type="text"
       placeholder="Enter your chat id"
       name="chat_id"
@@ -29,7 +46,7 @@
     <!-- noform to prevent the button from triggering the form submit event -->
     <button
       form="noform"
-      on:click={openHelp}
+      onclick={openHelp}
       id="help-button"
       title="Où trouver le chat-id ?"
     >
