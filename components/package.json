@@ -23,6 +23,7 @@
     "@mdit/plugin-spoiler": "^0.22.1",
     "markdown-it": "^14.1.0",
     "markdown-it-highlightjs": "^4.2.0",
+    "markdown-it-plugin-underline": "^0.0.1",
     "markdown-it-task-lists": "^2.1.1"
   }
 }

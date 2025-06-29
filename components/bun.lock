@@ -7,6 +7,7 @@
         "@mdit/plugin-spoiler": "^0.22.1",
         "markdown-it": "^14.1.0",
         "markdown-it-highlightjs": "^4.2.0",
+        "markdown-it-plugin-underline": "^0.0.1",
         "markdown-it-task-lists": "^2.1.1",
       },
       "devDependencies": {
@@ -187,6 +188,8 @@
     "markdown-it": ["markdown-it@14.1.0", "", { "dependencies": { "argparse": "^2.0.1", "entities": "^4.4.0", "linkify-it": "^5.0.0", "mdurl": "^2.0.0", "punycode.js": "^2.3.1", "uc.micro": "^2.1.0" }, "bin": { "markdown-it": "bin/markdown-it.mjs" } }, "sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg=="],
 
     "markdown-it-highlightjs": ["markdown-it-highlightjs@4.2.0", "", { "dependencies": { "highlight.js": "^11.9.0" } }, "sha512-NC7pXE8KkOl6xWJVRNt8p6wgJVznXKsE0HgYGdk6DD2tn1l4L9f0ALf3VIoGVkotNU1uGQatSxfBF1zZPUMmuQ=="],
+
+    "markdown-it-plugin-underline": ["markdown-it-plugin-underline@0.0.1", "", {}, "sha512-DtmxlE70JpNSacXU62kLa7degjVft4GU9QkR8cL0LYZLK7k6xgibpoUMsNdvtDG8QSUGOl1955AFtDJC7d9t6g=="],
 
     "markdown-it-task-lists": ["markdown-it-task-lists@2.1.1", "", {}, "sha512-TxFAc76Jnhb2OUu+n3yz9RMu4CwGfaT788br6HhEDlvWfdeJcLUsxk1Hgw2yJio0OXsxv7pyIPmvECY7bMbluA=="],
 
