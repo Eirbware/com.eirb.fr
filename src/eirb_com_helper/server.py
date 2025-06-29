@@ -65,9 +65,8 @@ def send_message():
     )
     chat_id = data["chat_id"]
 
-    is_markdown_content: bool = False
     if content_type == "markdown":
-        is_markdown_content = True
+        raise NotImplementedError("Markown content type is no longer supported")
     elif content_type != "html":
         abort(401, '`content_type` field must match "html" or "markdown" values')
 
@@ -79,7 +78,7 @@ def send_message():
         abort(401, "missing `chat_id` field")
 
     try:
-        asyncio.run(bot_send_message(msg, chat_id, not is_markdown_content))
+        asyncio.run(bot_send_message(msg, chat_id))
     except BadMessageFormatException as e:
         abort(401, str(e))
     return "Message sent!\n", 200
