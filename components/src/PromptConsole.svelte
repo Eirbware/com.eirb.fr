@@ -4,6 +4,7 @@
   import { htmlRenderedContent } from "./runes/html-rendered-content.svelte";
 
   import { postMessage } from "./lib/send-message";
+    import { onMount } from "svelte";
 
   let chatId: string = $state("");
 
@@ -18,6 +19,57 @@
   function openHelp() {
     displayHelpModal.state = true;
   }
+
+  let { botUsername, botLink }: { botUsername: string; botLink: string } =
+    $props();
+
+  const defaultText = `Enter your message here
+
+> The previewed message will be sent to you by [\`${botUsername}\`](${botLink}). Contact him in private on Telegram, next run the \`/start\` command to get your chat id. Then, fill the field below with this chat id and click on *Submit* to get the message in your private Telegram chat.
+
+Below you can get some samples of markdown syntax :
+
+**bold \\*\\*text**
+__bold \\_\\_text__
+
+*italic \\*text*
+_italic \\_text_
+<u>\\<u\\>underline</u>
+~~\\~\\~strikethrough~~
+||\\|\\|spoiler||
+**bold _italic bold ~~italic bold strikethrough ||italic bold strikethrough spoiler||~~ <u>underline italic bold_</u> bold**
+[inline URL](http://www.example.com/)
+👍
+\`inline fixed-width code\`
+\`\`\`
+pre-formatted fixed-width code block
+\`\`\`
+\`\`\`python
+# here is a pre-formatted fixed-width code block
+# with Python code
+for _ in range(2):
+  print("ENSEIRB, ", end="")
+print("On s'en...")
+\`\`\`
+>Block quotation started
+>Block quotation continued
+>Block quotation continued
+>Block quotation continued
+>The last line of the block quotation
+
+For separating your parapraphs in your messages
+
+
+The linebreaks are automatically kept ||though this does not respect the
+CommonMark convention||
+
+- [x] export to discord *(just copy your markdown)*
+- [ ] export for webmail
+- [x] export for telegram
+`;
+  onMount(() => {
+    markdownContent.content = defaultText;
+  })
 </script>
 
 <form id="dataForm" onsubmit={messageSubmit} class="editor">
@@ -28,7 +80,25 @@
       id="message"
       bind:value={markdownContent.content}
       name="message"
-      placeholder="Enter your message here">Enter your message here</textarea
+      placeholder="Enter your message here
+
+The previewed message will be sent to you by {botUsername}. Contact him in private on Telegram, next run the '/start' command to get your chat id. Then, fill the field below with this chat id and click on Submit to get the message in your private Telegram chat.
+
+"
+      >Enter your message here > The previewed message will be sent to you by [`{botUsername}`]({botLink}).
+      Contact him in private on Telegram, next run the `/start` command to get
+      your chat id. Then, fill the field below with this chat id and click on
+      *Submit* to get the message in your private Telegram chat. Below you can
+      get some samples of markdown syntax : **bold \*\*text** __bold \_\_text__
+      *italic \*text* _italic \_text_ <u>underline</u> ~strikethrough~
+      ~~strikethrough~~ ||spoiler|| **bold _italic bold ~~italic bold
+      strikethrough ||italic bold strikethrough spoiler||~~ <u>underline italic
+      bold_</u> bold** [inline URL](http://www.example.com/) 👍 `inline
+      fixed-width code` ``` pre-formatted fixed-width code block ``` ```python
+      pre-formatted fixed-width code block written in the Python programming
+      language ``` >Block quotation started >Block quotation continued >Block
+      quotation continued >Block quotation continued >The last line of the block
+      quotation - [ ] not done - [x] done</textarea
     >
   </div>
 

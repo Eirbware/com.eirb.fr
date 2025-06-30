@@ -5,11 +5,14 @@
   import HelpModal from "./HelpModal.svelte";
   import PreviewButton from "./PreviewButton.svelte";
   import { preview } from "./runes/preview.svelte";
+
+  export let botUsername: string = "";
+  export let botLink: string = "";
 </script>
 
 <!-- Left half of the screen with a form -->
 <header><PlatformSelector></PlatformSelector></header>
-<main><PromptConsole></PromptConsole></main>
+<main><PromptConsole {botUsername} {botLink}></PromptConsole></main>
 
 <!-- Right half of the screen -->
 {#if preview.state}

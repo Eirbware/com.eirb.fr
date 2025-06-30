@@ -3,8 +3,14 @@ import "./main.css";
 import "./layout.css";
 import App from "./App.svelte";
 
-const app = mount(App, {
-  target: document.getElementById("com-app")!
-});
+const comAppElement = document.getElementById("com-app");
+if (comAppElement) {
+  const botUsername =
+    comAppElement.getAttribute("data-bot-username") ?? "<unknown>";
+  const botLink = comAppElement.getAttribute("data-bot-link") ?? "about:blank";
 
-export default app;
+  mount(App, {
+    target: comAppElement,
+    props: { botUsername, botLink },
+  });
+}
