@@ -28,6 +28,11 @@ vite-dev:
 flask-dev:
   poetry run flask {{FLASK_APP_FLAG}} --debug run
 
+# Start the Telegram dispatcher server for development purpose
+[group("dev")]
+dispatcher-dev:
+  poetry run dispatcher
+
 # Check the typing, the accessibility and the style in the vite/svelte components
 [group("dev")]
 vite-check:
@@ -38,7 +43,7 @@ vite-check:
 build:
   poetry run flask {{FLASK_APP_FLAG}} vite build
 
-# Start the bot listener for displaying the chatId
+# Start the flask server and the dispatcher in production
 [group("prod")]
 start-server:
-  poetry run python src/listenChatId.py
+  poetry run production
