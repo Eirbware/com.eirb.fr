@@ -43,7 +43,7 @@ vite-check:
 build:
   poetry run flask {{FLASK_APP_FLAG}} vite build
 
-# Start the flask server and the dispatcher in production
+# Start the flask server and the dispatcher concurrently in production mode
 [group("prod")]
 start-server:
   poetry run production

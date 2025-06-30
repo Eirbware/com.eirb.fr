@@ -1,3 +1,4 @@
+from asgiref.wsgi import WsgiToAsgi
 from dotenv_vault import load_dotenv
 from flask import Flask, request, abort, render_template
 from flask_vite import Vite
@@ -97,3 +98,5 @@ def server_frontend_in_index():
         bot_username=BOT_USERNAME,
         bot_link=f"https://t.me/{BOT_USERNAME[1:]}",
     )
+
+asgi_app = WsgiToAsgi(app)

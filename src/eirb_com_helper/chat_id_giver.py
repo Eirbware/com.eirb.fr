@@ -40,7 +40,7 @@ async def run_listener() -> None:
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
     # And the run events dispatching
-    await dp.start_polling(bot)
+    await dp.start_polling(bot, handle_signals=False)
 
 def run():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)

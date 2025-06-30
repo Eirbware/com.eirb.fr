@@ -15,6 +15,8 @@ export default defineConfig({
   },
   plugins: [svelte()],
   build: {
+    outDir: "../dist",
+    emptyOutDir: true,
     manifest: true,
     rollupOptions: {
       input: ['/main.ts', '/index.html']
