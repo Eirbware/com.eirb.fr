@@ -4,14 +4,7 @@ from aiogram.exceptions import TelegramBadRequest
 from sulguk import AiogramSulgukMiddleware, SULGUK_PARSE_MODE
 from .converter import htmlToSulgukHtml
 
-from os import getenv
-
-
-def getenv_or_throw(var_name: str):
-    var_value = getenv(var_name)
-    if var_value is None:
-        raise Exception(f"Missing the following env value in the .env: {var_value}")
-    return var_value
+from .env import getenv_or_throw, getenv
 
 
 bot_token = getenv_or_throw("BOT_TOKEN")
