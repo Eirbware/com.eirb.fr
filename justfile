@@ -1,4 +1,5 @@
 FLASK_APP_FLAG := "--app ./src/eirb_com_helper/server.py"
+DEPLOY_ARCHIVE_NAME := "ready_to_deploy.tar.gz"
 
 # List all the justfile rules
 default:
@@ -12,7 +13,7 @@ poetry-install:
 # Install the vite dependencies only
 [group("install")]
 vite-install:
-  cd components && bun install
+  poetry run flask {{FLASK_APP_FLAG}} vite install
 
 # Install all the dependencies
 [group("install")]
@@ -40,8 +41,13 @@ vite-check:
 
 # Build the frontend components for a production mode of the flask server
 [group("prod")]
-build:
+vite-build:
   poetry run flask {{FLASK_APP_FLAG}} vite build
+
+# Build an archive with all the required files for a deployment with Docker
+[group("prod")]
+build: vite-build
+  tar czvf {{DEPLOY_ARCHIVE_NAME}} components/dist/ src/ templates/ README.md pyproject.toml poetry.lock Dockerfile docker-compose.yml .env.production
 
 # Start the flask server and the dispatcher concurrently in production mode
 [group("prod")]

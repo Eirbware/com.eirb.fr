@@ -8,7 +8,6 @@ from .env import getenv_or_throw, getenv
 
 
 bot_token = getenv_or_throw("BOT_TOKEN")
-default_chat_id = getenv("CHAT_ID", default=None)
 
 _bot = Bot(
     token=bot_token,
@@ -27,14 +26,10 @@ class BadMessageFormatException(Exception):
     pass
 
 
-async def send_message(msg: str, chat_id: str | None = None):
+async def send_message(msg: str, chat_id: str):
     """
     send the given message in private message, with applying it a range of parsing for telegram to correctly format it
     """
-    if chat_id is None:
-        if default_chat_id is None:
-            raise Exception("Missing the chat_id var in your .env")
-        chat_id = default_chat_id
     async with _bot as bot:
         try:
             msg = htmlToSulgukHtml(msg)

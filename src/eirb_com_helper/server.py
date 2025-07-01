@@ -1,26 +1,18 @@
 from asgiref.wsgi import WsgiToAsgi
-from dotenv_vault import load_dotenv
 from flask import Flask, request, abort, render_template
 from flask_vite import Vite
 from flask_cors import CORS
 import bleach
 import asyncio
-from os import getenv
 from pathlib import Path
+
+from eirb_com_helper.env import getenv_or_throw
 from .bot import send_message as bot_send_message, BadMessageFormatException
 
 # Flask setup
 APP_NAME = "TELEGRAM_STYLED_MESSAGE_SENDER"
 
-
-def getenv_or_raise(varname: str):
-    envvar = getenv(varname)
-    if envvar is None:
-        raise Exception(f"Missing {varname} env variable in the .env")
-    return envvar
-
-load_dotenv()
-BOT_USERNAME = getenv_or_raise("BOT_USERNAME")
+BOT_USERNAME = getenv_or_throw("BOT_USERNAME")
 
 # security tag whitelist for the html body in /send endpoint
 ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union(
