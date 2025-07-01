@@ -5,6 +5,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock README.md .
 COPY src ./src/
 COPY templates ./templates/
+COPY static ./static/
 COPY components/dist ./components/dist/
 
 COPY .env.production ./.env

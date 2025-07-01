@@ -24,11 +24,13 @@ ALLOWED_ATTRIBUTES["code"] = ["class"]
 
 module_path = Path(__file__).parent
 template_path = Path("./templates/")
+static_path = Path("./static/")
 frontend_component_path = Path("./components/")
 
 app = Flask(
     APP_NAME,
     template_folder=str(template_path),
+    static_folder=static_path
 )
 app.config["VITE_NPM_BIN_PATH"] = "bun"
 app.config["VITE_FOLDER_PATH"] = frontend_component_path

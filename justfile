@@ -47,7 +47,10 @@ vite-build:
 # Build an archive with all the required files for a deployment with Docker
 [group("prod")]
 build: vite-build
-  tar czvf {{DEPLOY_ARCHIVE_NAME}} components/dist/ src/ templates/ README.md pyproject.toml poetry.lock Dockerfile docker-compose.yml .env.production
+  tar czvf {{DEPLOY_ARCHIVE_NAME}} components/dist/ \
+    src/ templates/ static/ \
+    README.md pyproject.toml poetry.lock \
+    Dockerfile docker-compose.yml .env.production
 
 # Start the flask server and the dispatcher concurrently in production mode
 [group("prod")]
