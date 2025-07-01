@@ -1,10 +1,15 @@
-FROM alpine:3.20
+FROM getflow/python-poetry:2.1-python3.13-alpine
 
-RUN apk add python3 poetry
+WORKDIR /app
 
-COPY . .
-COPY .env.production .env
+COPY pyproject.toml poetry.lock README.md .
+COPY src ./src/
+COPY templates ./templates/
+COPY components/dist ./components/dist/
 
-RUN poetry install
+COPY .env.production ./.env
 
-CMD ["./run.sh"]
+RUN $POETRY_HOME/bin/poetry config virtualenvs.create false && \
+      $POETRY_HOME/bin/poetry install
+
+CMD $POETRY_HOME/bin/poetry run production

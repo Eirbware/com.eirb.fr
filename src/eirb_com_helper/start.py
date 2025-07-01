@@ -9,9 +9,9 @@ def start_dispatcher_in_dev():
     dispatcher_run()
 
 def _create_prod_server():
-    """Return a uvicorn asgi server"""
+    """Return a uvicorn asgi production server"""
     config = uvicorn.Config(
-        "eirb_com_helper.server:asgi_app", port=5000, log_level="info"
+        "eirb_com_helper.server:asgi_app", host="0.0.0.0", port=5000, log_level="info"
     )
     return uvicorn.Server(config)
 
