@@ -1,12 +1,22 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import { displayHelpModal } from "./runes/display-help-modal.svelte";
   import { markdownContent } from "./runes/markdown-content.svelte";
   import { htmlRenderedContent } from "./runes/html-rendered-content.svelte";
 
   import { postMessage } from "./lib/send-message";
-    import { onMount } from "svelte";
+  import { getChatId, setChatId, setDraft } from "./lib/store-inputs";
 
-  let chatId: string = $state("");
+  let chatId: string = $state(getChatId());
+
+  // When the runes will be update, the setChatId and setDraft will also be
+  $effect(() => {
+    setChatId(chatId);
+  });
+  $effect(() => {
+    setDraft(markdownContent.content);
+  });
 
   function messageSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -68,8 +78,9 @@ CommonMark convention||
 - [x] export for telegram
 `;
   onMount(() => {
-    markdownContent.content = defaultText;
-  })
+    if ($state.snapshot(markdownContent.content) === "")
+      markdownContent.content = defaultText;
+  });
 </script>
 
 <form id="dataForm" onsubmit={messageSubmit} class="editor">
@@ -85,21 +96,7 @@ CommonMark convention||
 The previewed message will be sent to you by {botUsername}. Contact him in private on Telegram, next run the '/start' command to get your chat id. Then, fill the field below with this chat id and click on Submit to get the message in your private Telegram chat.
 
 "
-      >Enter your message here > The previewed message will be sent to you by [`{botUsername}`]({botLink}).
-      Contact him in private on Telegram, next run the `/start` command to get
-      your chat id. Then, fill the field below with this chat id and click on
-      *Submit* to get the message in your private Telegram chat. Below you can
-      get some samples of markdown syntax : **bold \*\*text** __bold \_\_text__
-      *italic \*text* _italic \_text_ <u>underline</u> ~strikethrough~
-      ~~strikethrough~~ ||spoiler|| **bold _italic bold ~~italic bold
-      strikethrough ||italic bold strikethrough spoiler||~~ <u>underline italic
-      bold_</u> bold** [inline URL](http://www.example.com/) 👍 `inline
-      fixed-width code` ``` pre-formatted fixed-width code block ``` ```python
-      pre-formatted fixed-width code block written in the Python programming
-      language ``` >Block quotation started >Block quotation continued >Block
-      quotation continued >Block quotation continued >The last line of the block
-      quotation - [ ] not done - [x] done</textarea
-    >
+    ></textarea>
   </div>
 
   <!-- Chat id input and submit button occupying the remaining 10% of
