@@ -1,7 +1,6 @@
+from typing import cast
 from asgiref.wsgi import WsgiToAsgi
-from flask import Flask, request, abort, render_template
-from flask_vite import Vite
-from flask_cors import CORS
+from flask import Flask, request, abort, send_from_directory
 import bleach
 import asyncio
 from pathlib import Path
@@ -12,7 +11,7 @@ from .bot import send_message as bot_send_message, BadMessageFormatException
 # Flask setup
 APP_NAME = "TELEGRAM_STYLED_MESSAGE_SENDER"
 
-BOT_USERNAME = getenv_or_throw("BOT_USERNAME")
+BOT_USERNAME = getenv_or_throw("PUBLIC_BOT_USERNAME")
 
 # security tag whitelist for the html body in /send endpoint
 ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union(
@@ -22,21 +21,15 @@ ALLOWED_ATTRIBUTES = dict(bleach.sanitizer.ALLOWED_ATTRIBUTES)
 ALLOWED_ATTRIBUTES["span"] = ["class"]
 ALLOWED_ATTRIBUTES["code"] = ["class"]
 
-module_path = Path(__file__).parent
-template_path = Path("./templates/")
-static_path = Path("./static/")
-frontend_component_path = Path("./components/")
+_static_path = Path("./frontend/build/")
 
-app = Flask(
-    APP_NAME,
-    template_folder=str(template_path),
-    static_folder=static_path
-)
-app.config["VITE_NPM_BIN_PATH"] = "bun"
-app.config["VITE_FOLDER_PATH"] = frontend_component_path
+if not _static_path.exists():
+    raise Exception(
+        "😡 The frontend must be built so the server can \
+statically serve it"
+    )
 
-CORS(app)
-vite = Vite(app)
+app = Flask(APP_NAME, static_folder=_static_path)
 
 
 @app.post("/send")
@@ -78,19 +71,13 @@ def send_message():
         abort(401, str(e))
     return "Message sent!\n", 200
 
+@app.route('/')
+def server_static_frontend_as_index():
+    return send_from_directory(cast(str, app.static_folder), 'index.html')
 
-@app.route("/")
-def server_frontend_in_index():
-    print(
-        str(
-            Path(app.root_path)
-            / (app.template_folder if app.template_folder is not None else "")
-        )
-    )
-    return render_template(
-        "frontend.j2",
-        bot_username=BOT_USERNAME,
-        bot_link=f"https://t.me/{BOT_USERNAME[1:]}",
-    )
+# Serve all other static files (like _app/... and chunks)
+@app.route('/<path:path>')
+def serve_static_files(path):
+    return send_from_directory(cast(str, app.static_folder), path)
 
 asgi_app = WsgiToAsgi(app)

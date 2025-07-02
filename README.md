@@ -69,7 +69,7 @@ Add the token and the username of the sender bot in the `/.env` (or
 
 ```env
 BOT_TOKEN="your_telegram_bot_token"
-BOT_USERNAME="@YourBotUsername"
+PUBLIC_BOT_USERNAME="@YourBotUsername"
 ```
 
 ### How to get these credentials on Telegram
