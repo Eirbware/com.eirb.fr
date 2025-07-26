@@ -1,22 +1,41 @@
 <script lang="ts">
 	import 'highlight.js/styles/default.css';
 	import './css/telegram-new-renderer.css';
-	import backgroundImage from './assets/telegram-chat-background.png?enhanced';
+	import darkBackgroundImage from './assets/telegram-chat-background.png?enhanced';
+	import lightBackroundImage from './assets/telegram-background-light.jpg?enhanced';
 
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	let { htmlContent }: { htmlContent: string } = $props();
 
+	let backgroundImage = $state(darkBackgroundImage);
+
+	onMount(() => {
+		const mediaQuery = '(prefers-color-scheme: dark)';
+		const mql = window.matchMedia(mediaQuery);
+		function changeBgImage(inDarkMode: boolean) {
+			backgroundImage = inDarkMode ? darkBackgroundImage : lightBackroundImage;
+		}
+		changeBgImage(mql.matches);
+		const browserLightMode = (event: MediaQueryListEvent) => {
+			changeBgImage(event.matches);
+		};
+		mql.addEventListener('change', browserLightMode);
+		return () => {
+			mql.removeEventListener('change', browserLightMode);
+		};
+	});
 	const TELEGRAM_CHAR_LIMIT_PER_MESSAGE = 4096;
-  function distance_to_color(val: number, ref_treshold: number) {
-    const distance = ref_treshold - val;
-    if (distance > 0.1*ref_treshold) 
-      return "13, 148, 136";
-    if (distance > 0.05*ref_treshold)
-      return "255, 179, 0";
-    return "255, 0, 0";
-  }
-  const count_color_indicator = $derived(`--indic-color: ${distance_to_color(htmlContent.length, TELEGRAM_CHAR_LIMIT_PER_MESSAGE)}`);
+	function distance_to_color(val: number, ref_treshold: number) {
+		const distance = ref_treshold - val;
+		if (distance > 0.1 * ref_treshold) return '13, 148, 136';
+		if (distance > 0.05 * ref_treshold) return '255, 179, 0';
+		return '255, 0, 0';
+	}
+	const count_color_indicator = $derived(
+		`--indic-color: ${distance_to_color(htmlContent.length, TELEGRAM_CHAR_LIMIT_PER_MESSAGE)}`
+	);
 
 	function renderSulgukCaveats(content: string) {
 		/* Edit the HTML to add newlines around the code blocks, which is forced by
