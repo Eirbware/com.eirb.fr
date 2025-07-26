@@ -168,3 +168,7 @@
   display: block;
   padding: .25rem .625rem;
 }
+
+.telegram-message .spoiler {
+  background-color: rgb(217, 217, 217);
+}
