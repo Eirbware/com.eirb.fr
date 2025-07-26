@@ -138,17 +138,19 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 18.3833px;
-  margin-bottom: 4px;
   margin-left: 0px;
   margin-right: 0px;
-  margin-top: 4px;
+  /* we display the empty line emphasizes added by sulguk */
+  /* TODO: remove this emphasize from sulguk or display true newlines */
+  margin-bottom: calc(4px + 21px); 
+  margin-top: calc(4px + 21px);
   overflow-wrap: break-word;
   overflow-x: hidden;
   overflow-y: hidden;
   position: relative;
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
   text-wrap-mode: wrap;
-  word-break: break-word
+  word-break: break-word;
 }
 
 .telegram-message pre::before {

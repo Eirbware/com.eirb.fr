@@ -16,10 +16,10 @@
 	function renderCodeHeader(content: string) {
 		const parser = new DOMParser();
 		const rendered = parser.parseFromString(content, 'text/html');
-		const codeHeader = (language: string) => {
+		const codeHeader = (language: string | undefined) => {
 			const newElt = rendered.createElement('div');
 			newElt.classList.add('code-header');
-			newElt.innerHTML = `<span class="code-header-name">${language.charAt(0).toUpperCase() + language.slice(1)}</span>
+			newElt.innerHTML = `<span class="code-header-name">${language ? language.charAt(0).toUpperCase() + language.slice(1) : 'copy'}</span>
 <span class="code-header-button"></span>
 <span class="code-header-button"></span>`;
 			return newElt;
@@ -27,7 +27,7 @@
 		rendered.querySelectorAll('pre').forEach((preElt) => {
 			const codeBlock = preElt.querySelector('code');
 			if (codeBlock === null) return;
-			const codeBlockLanguage = codeBlock.classList[1].split('language-')[1];
+			const codeBlockLanguage: string | undefined = codeBlock.classList[1]?.split('language-')[1];
 			preElt.insertBefore(codeHeader(codeBlockLanguage), codeBlock);
 		});
 		return rendered.documentElement.outerHTML;
