@@ -6,8 +6,9 @@
 		"@eslint/js": "^9.18.0",
 		"@mdit/plugin-spoiler": "^0.22.1",
 		"@sveltejs/adapter-static": "^3.0.8",
+		"@sveltejs/enhanced-img": "^0.7.0",
 		"@sveltejs/kit": "^2.16.0",
-		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@sveltejs/vite-plugin-svelte": "^6.0.0",
 		"@types/markdown-it": "^14.1.2",
 		"@types/markdown-it-highlightjs": "^4.0.1",
 		"eslint": "^9.18.0",
@@ -39,6 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"cheerio": "^1.1.2"
+		"cheerio": "^1.1.2",
+		"vite-plugin-svelte": "^3.0.1"
 	}
 }

@@ -54,10 +54,9 @@
 
   aside {
     grid-area: preview;
-    padding: 30px;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 
   @media (max: 480px), screen and (orientation: portrait) {

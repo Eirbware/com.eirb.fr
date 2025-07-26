@@ -210,6 +210,10 @@
   padding: .25rem;
 }
 
+.telegram-message .code-header-button:hover {
+  background-color: rgba(214, 119, 34, .16);
+}
+
 .telegram-message li {
   list-style-position: inside;
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import 'highlight.js/styles/default.css';
-	import './css/telegram-renderer.css';
 	import './css/telegram-new-renderer.css';
+  import backgroundImage from "./assets/telegram-chat-background.png?enhanced";
 
 	import { browser } from '$app/environment';
 
@@ -14,7 +14,7 @@
 		return content;
 	}
 	function renderCodeHeader(content: string) {
-    // TODO: use cheerio instead of the browser's dom
+		// TODO: use cheerio instead of the browser's dom
 		const parser = new DOMParser();
 		const rendered = parser.parseFromString(content, 'text/html');
 		const codeHeader = (language: string | undefined) => {
@@ -39,14 +39,66 @@
 	}
 </script>
 
-<div class="telegram-bubble-content-wrapper">
-	<div class="telegram-bubble-content">
-		<div class="telegram-message-wrapper">
-			<div class="telegram-message">
-				{#if browser}
-					{@html htmlToDisplayedHTML(htmlContent)}
-				{/if}
+<div class="telegram-renderer">
+  <div class="chat-background">
+    <enhanced:img src={backgroundImage}
+      alt="telegram-background"/>
+  </div>
+	<div class="char-count">
+		Character number: <code>{htmlContent.length}/7000</code>
+	</div>
+	<div class="telegram-bubble-content-wrapper">
+		<div class="telegram-bubble-content">
+			<div class="telegram-message-wrapper">
+				<div class="telegram-message">
+					{#if browser}
+						{@html htmlToDisplayedHTML(htmlContent)}
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	.telegram-renderer {
+		position: relative;
+    height: 100vh;
+	}
+
+	.char-count {
+		position: absolute;
+    margin: 5px;
+		z-index: 4;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(13, 148, 136, 0.5); /* teal-600 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem; /* text-sm */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+  
+  .char-count:hover {
+    background-color: rgb(13, 148, 136); /* teal-600 */
+  }
+
+  .chat-background enhanced\:img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    pointer-events: none; /* ensures it doesn't block content */
+    z-index: 0;
+  }
+
+	.telegram-bubble-content-wrapper {
+		padding: 30px;
+		z-index: 1;
+    height: 100%;
+    overflow-y: auto;
+	}
+</style>
