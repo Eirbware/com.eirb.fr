@@ -58,7 +58,6 @@
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
   text-wrap-mode: wrap;
   unicode-bidi: plaintext;
-  white-space-collapse: preserve;
   word-break: break-word
 }
 
@@ -71,7 +70,6 @@
   line-height: 21px;
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
   text-wrap-mode: wrap;
-  white-space-collapse: preserve;
   word-break: break-word
 }
 
@@ -99,7 +97,6 @@
 	text-wrap-mode: wrap;
 	unicode-bidi: plaintext;
 	vertical-align: bottom;
-	white-space-collapse: preserve;
 	word-break: break-word;
 }
 
@@ -124,4 +121,50 @@
   color: rgb(214, 119, 34);
   font-size: 78.571428%;
   line-height: 1;
+}
+
+.telegram-message code {
+  color: rgb(214, 119, 34);
+  cursor: pointer;
+  font-family: "Roboto Mono", monospace;
+}
+
+.telegram-message pre {
+  background-color: rgba(214, 119, 34, 0.1);
+  box-sizing: border-box;
+  color: rgb(0, 0, 0);
+  display: block;
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.3833px;
+  margin-bottom: 4px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 4px;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  text-wrap-mode: wrap;
+  word-break: break-word
+}
+
+.telegram-message pre::before {
+  content: " ";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  flex: 0 0 auto;
+  width: .1875rem;
+  background: rgb(214, 119, 34);
+  z-index: 1;
+}
+
+.telegram-message pre code {
+  line-height: 19px;
+  display: block;
+  padding: .25rem .625rem;
 }
