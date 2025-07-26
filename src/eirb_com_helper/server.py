@@ -15,7 +15,7 @@ BOT_USERNAME = getenv_or_throw("PUBLIC_BOT_USERNAME")
 
 # security tag whitelist for the html body in /send endpoint
 ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union(
-    {"u", "s", "del", "pre", "p", "br", "span"}
+    {"u", "s", "del", "pre", "p", "br", "span", "html", "head", "body"}
 )  # cf telegram supported tags + bleach allowed_tags
 ALLOWED_ATTRIBUTES = dict(bleach.sanitizer.ALLOWED_ATTRIBUTES)
 ALLOWED_ATTRIBUTES["span"] = ["class"]

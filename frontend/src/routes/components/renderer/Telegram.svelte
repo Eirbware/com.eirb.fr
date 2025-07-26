@@ -14,6 +14,7 @@
 		return content;
 	}
 	function renderCodeHeader(content: string) {
+    // TODO: use cheerio instead of the browser's dom
 		const parser = new DOMParser();
 		const rendered = parser.parseFromString(content, 'text/html');
 		const codeHeader = (language: string | undefined) => {
