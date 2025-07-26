@@ -10,8 +10,11 @@ message on Discord, Telegram, a webmail, etc.
 
 ## 📦 Deploy and run in production
 
-1. Be sure that all the sources files and the frontend built assets are
-   available with the docker files as in the file tree below
+1. The two entrypoints files are the `docker-compose.yml` and the `Dockerfile`,
+   at the root of the repository.
+
+2. In their directory on the remote machine, be sure that the sources files and
+   the built assets of the frontend are available, like in the file tree below:
 
     ```sh
     # All the files below are required
@@ -32,7 +35,7 @@ message on Discord, Telegram, a webmail, etc.
     or the `.env.production` which is not written), see
     [this section](#🏗️-building-for-deployment)
 
-2. Run the docker-compose file. The Flask server will be reachable on port
+3. Run the docker-compose file. The Flask server will be reachable on port
    `8000` and the Telegram bot will listen all `/start` commands.
 
    ```sh
@@ -47,14 +50,17 @@ We assume you carry out the application building on your machine.
 
 - `python` (>=3.13)
 - `poetry` (>=2.1)
-- `bunjs` on the PATH with `bun`
+- `bunjs` (>=1.2.19) on the PATH with `bun`  
+  If you want to install it from npm, it is strongly advised to use npm with a
+version of Node.js greater or equal to `24.1.1` (for the support of the last
+version of sveltekit and vitejs to be suitable at runtime)
 
 ### Install
 
 If you have `justfile`, it is easier
 
 ```sh
-just install
+just install # install both the deps for the frontend and the backend
 ```
 
 ## 🔑 Application credentials
@@ -119,9 +125,11 @@ For a convenient development experience, run the three sub-applications
 separately with those three rules
 
 ```sh
-# both the sub-applications below will run with friendly auto-reload 😁
+# for developing on the frontend
 just vite-dev
-just flask-dev # requires vite-dev to be running
+
+# for developing on the backend (the frontend must have been built before)
+just flask-dev # before, run $ just vite-build
 
 # in production, the dispatcher run in asynchronous concurrency with the
 # flask server

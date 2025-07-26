@@ -56,7 +56,7 @@ def send_message():
     if content_type == "markdown":
         raise NotImplementedError("Markown content type is no longer supported")
     elif content_type != "html":
-        abort(401, '`content_type` field must match "html" or "markdown" values')
+        abort(401, '`content_type` field must match the "html" value')
 
     if not msg:
         abort(401, "missing `content` field")
