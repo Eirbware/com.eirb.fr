@@ -4,7 +4,7 @@ from aiogram.exceptions import TelegramBadRequest
 from sulguk import AiogramSulgukMiddleware, SULGUK_PARSE_MODE
 from .converter import htmlToSulgukHtml
 
-from .env import getenv_or_throw, getenv
+from .env import getenv_or_throw
 
 
 bot_token = getenv_or_throw("BOT_TOKEN")
