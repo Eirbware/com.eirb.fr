@@ -1,5 +1,5 @@
 services:
-  bot:
+  eirb-com-helper:
     build: .
     ports:
       - "8000:5000"

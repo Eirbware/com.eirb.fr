@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telegram message writer</title>
+    <link
+-      rel="shortcut icon"
+-      href="{{ url_for('static', filename='favicon.png') }}"
+-      type="image/x-icon"
+-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    {{ vite_tags() }}
+  </head>
+  <body>
+    <div
+      id="com-app"
+      data-bot-username="{{ bot_username }}"
+      data-bot-link="{{ bot_link }}"
+    ></div>
+  </body>
+</html>
