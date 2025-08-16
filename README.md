@@ -50,10 +50,34 @@ We assume you carry out the application building on your machine.
 
 - `python` (>=3.13)
 - `poetry` (>=2.1)
-- `bunjs` (>=1.2.19) on the PATH with `bun`  
+- `bunjs` (>=1.2.19) on the PATH with `bun`
   If you want to install it from npm, it is strongly advised to use npm with a
 version of Node.js greater or equal to `24.1.1` (for the support of the last
 version of sveltekit and vitejs to be suitable at runtime)
+- `just` if you are lazy to run the commands
+
+You can set a local, rootless and isolated environment with all these tools
+thanks to `conda` with running this command:
+
+```sh
+conda env create --prefix ./com-env -f environment.yml
+conda activate ./com-env && npm install -g bun
+```
+
+Then, be sure to always source the  environment of `./com-env` when you work on
+the project.
+
+```sh
+conda activate ./com-env
+# then run just, bun, python, poetry, etc...
+```
+
+To remove it purely
+
+```sh
+conda deactivate  # leave the environment before
+conda remove --prefix ./com-env --all
+```
 
 ### Install
 
@@ -105,8 +129,9 @@ section](#📦-deploy-and-run-in-production)), run this rule
 just build
 ```
 
-A `ready_to_deploy.tar.gz` archive will be produced. Just unpack it on
-your server and run `docker compose up`.
+A `ready_to_deploy.tar.gz` archive will be produced. Just unpack it on your
+server (be sure the output port is correctly set in the `docker-compose.yml`)
+and run `docker compose up`.
 
 ## 💻 Run in development
 
@@ -165,13 +190,13 @@ send the message as in the previewed html.
 The writable Markdown follow the [CommonMark](https://spec.commonmark.org/) specification, with those additional specificities:
 
 - all linebreaks in addition with those allowed by the specification are kept,
-  as we are writing a message, not a README or a webpage content.
-  *Current caveat: this feature is not enabled in blockquotes for now*
+  as we are writing a message instead of a README or a webpage content.
+  *Current caveat: the code blocks are circled by a not removable linebreak for
+  now*
 
 - The only supported HTML tag is the `<u>`. The others are automatically
 broken.
 - Use `||` for spoilers.
-
 
 ### Rendered HTML
 
