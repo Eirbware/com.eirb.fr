@@ -75,9 +75,6 @@
 	<div class="chat-background">
 		<enhanced:img src={backgroundImage} alt="telegram-background" />
 	</div>
-	<div class="char-count" style={count_color_indicator}>
-		Character number: <code>{htmlContent.length}/{TELEGRAM_CHAR_LIMIT_PER_MESSAGE}</code>
-	</div>
 	<div class="telegram-bubble-content-wrapper">
 		<div class="telegram-bubble-content">
 			<div class="telegram-message-wrapper">
@@ -88,6 +85,9 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="char-count" style={count_color_indicator}>
+		Character number: <code>{htmlContent.length}/{TELEGRAM_CHAR_LIMIT_PER_MESSAGE}</code>
 	</div>
 </div>
 
@@ -100,7 +100,6 @@
 	.char-count {
 		position: absolute;
 		margin: 5px;
-		z-index: 4;
 		top: 0.5rem;
 		right: 0.5rem;
 		background-color: rgba(var(--indic-color), 0.5); /* teal-600 */
@@ -123,12 +122,10 @@
 		width: 100%;
 		object-fit: cover;
 		pointer-events: none; /* ensures it doesn't block content */
-		z-index: 0;
 	}
 
 	.telegram-bubble-content-wrapper {
 		padding: 30px;
-		z-index: 1;
 		height: 100%;
 		overflow-y: auto;
 	}

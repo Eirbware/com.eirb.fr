@@ -9,7 +9,7 @@
 
 <!-- Help Modal -->
 <dialog open={displayHelpModal.state} class="help-modal" id="help-modal">
-	<div class="help-modal--back" id="help-modal--back"></div>
+	<div on:click={closeHelp} class="help-modal--back" id="help-modal--back"></div>
 
 	<div class="help-modal--container">
 		<div class="help-modal--header">
