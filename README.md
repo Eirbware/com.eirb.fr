@@ -5,8 +5,8 @@ messages which is then sent to the user within a telegram bot with the right
 formatting.
 
 The main aim is to enable people writing cross-platform messages from a single
-source Markdown text, meaning that, with one source text, we can easily send a
-message on Discord, Telegram, a webmail, etc.
+Markdown source text, meaning that, with one source content, we can easily send
+a message on Discord, Telegram, a webmail, etc.
 
 ## 📦 Deploy and run in production
 
@@ -20,11 +20,11 @@ message on Discord, Telegram, a webmail, etc.
     # All the files below are required
     .
     ├── Dockerfile
-    ├── docker-compose.yml
+    ├── docker-compose.yml  # set the correct external port before
     ├── .env.production
     ├── README.md
-    ├── components
-    │   └── dist # directory with the built frontend assets
+    ├── frontend
+    │   └── build # directory with the built frontend assets
     ├── poetry.lock
     ├── pyproject.toml
     ├── src
@@ -50,14 +50,56 @@ We assume you carry out the application building on your machine.
 
 - `python` (>=3.13)
 - `poetry` (>=2.1)
-- `bunjs` (>=1.2.19) on the PATH with `bun`  
+- `bunjs` (>=1.2.19) on the PATH with `bun`
   If you want to install it from npm, it is strongly advised to use npm with a
 version of Node.js greater or equal to `24.1.1` (for the support of the last
 version of sveltekit and vitejs to be suitable at runtime)
+- `just` if you are lazy to run the commands
+
+You can set a local, rootless and isolated environment with all these tools
+thanks to `conda` with running this command. The `justfile` fully supports an
+installation with this environment manager:
+
+```sh
+# this installs the requirements above (excepted just)
+# and it also installs all the Python/BunJS libraries of the project
+just conda-full-install
+```
+
+Then, be sure to always source the environment of `./.com-env` when you work on
+the project. To do so, you can either:
+
+- Always use the mirror rules of the `justfile` starting with the `conda-`
+prefix. For instance,
+
+  ```sh
+  # equivalent of $ just build
+  # but with automatically using the ./.com-env environment
+  just conda-build
+  ```
+
+- Or run this command in your shell before using the CLIs and the basic rules
+of the `justfile`:
+
+  ```sh
+  conda activate ./.com-env
+  # then run just, bun, python, poetry, etc...
+  # e.g, $ just build
+  ```
+
+To purely clear the isolated environment
+
+```sh
+# also remove all the libraries required by the project
+# and the built files
+just conda-full-clean
+```
 
 ### Install
 
-If you have `justfile`, it is easier
+If you use conda, the previous installation rule is sufficient.
+
+Else, you can use the justfile:
 
 ```sh
 just install # install both the deps for the frontend and the backend
@@ -105,8 +147,9 @@ section](#📦-deploy-and-run-in-production)), run this rule
 just build
 ```
 
-A `ready_to_deploy.tar.gz` archive will be produced. Just unpack it on
-your server and run `docker compose up`.
+A `ready_to_deploy.tar.gz` archive will be produced. Just unpack it on your
+server (be sure the output port is correctly set in the `docker-compose.yml`)
+and run `docker compose up`.
 
 ## 💻 Run in development
 
@@ -165,13 +208,13 @@ send the message as in the previewed html.
 The writable Markdown follow the [CommonMark](https://spec.commonmark.org/) specification, with those additional specificities:
 
 - all linebreaks in addition with those allowed by the specification are kept,
-  as we are writing a message, not a README or a webpage content.
-  *Current caveat: this feature is not enabled in blockquotes for now*
+  as we are writing a message instead of a README or a webpage content.
+  *Current caveat: the code blocks are circled by a not removable linebreak for
+  now*
 
 - The only supported HTML tag is the `<u>`. The others are automatically
 broken.
 - Use `||` for spoilers.
-
 
 ### Rendered HTML
 

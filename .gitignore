@@ -1,3 +1,5 @@
 .env
 __pycache__
 .env.production
+.com-env
+ready_to_deploy.tar.gz
